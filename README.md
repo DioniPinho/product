@@ -1,10 +1,10 @@
-# product
-This is a project simple for register products.
+# Product
+This is a system for product registration.
 
-The tecnologies used in this project:
+The technologies used in this project were:
 
-Spring Boot
-Spring Data
-Spring Security
-Thymeleaf
-Bootstrap
+**Spring Boot  
+Spring Data_  
+Spring Security  
+Thymeleaf  
+Bootstrap**
