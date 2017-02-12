@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.tymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/template}">
+	
+	<head>
+	<title> Cadastro de Produtos</title>
+	</head>
+
+<body>
+
+	<div class="layout-page">
+
+
+		<section layout:fragment="content">
+
+
+			<div class="page-header">
+				<div class="container-fluid">
+					<h1>Cadastro de Produtos</h1>
+				</div>
+			</div>
+
+			<div class="container-fluid">
+
+
+				<form method="POST" class="form-vertical  js-form-loading"
+					th:object="${product}" th:action="@{/produtos/novo}">
+
+
+					<div class="alert  alert-danger  alert-dismissible" role="alert"
+						th:if="${#fields.hasAnyErrors()}">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<th:block th:each=" error : ${#fields.detailedErrors()}">
+							<div>
+								<i class="fa  fa-exclamation-circle"></i> <span
+									th:text="${error.message}"></span>
+							</div>
+						</th:block>
+					</div>
+
+					<div class="alert  alert-success  alert-dismissible" role="alert"
+						th:if="${!#strings.isEmpty(msg)}">
+						<span th:text="${msg}"></span>
+					</div>
+
+					<input type="hidden" th:field="*{id}">
+					<div class="form-group">
+						<label for="input-produto-nome">Nome</label> <input
+							id="input-produto-nome" type="text" class="form-control"
+							th:field="*{name}" />
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="input-produto-tipo">Tipo</label> <select
+									id="input-produto-tipo" class="form-control" th:field="*{category}">
+									<option value="">Selecione uma categoria</option>
+									<option th:each="category : ${categories}" th:value="${category}"
+										th:text="#{|productCategory.${category}|}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label for="input-produto-valor">Preço</label> <input
+									id="input-produto-valor" type="text"
+									class="form-control js-coin" placeholder="R$"
+									th:field="*{price}" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button class="btn  btn-primary" type="submit">Salvar</button>
+					</div>
+
+				</form>
+			</div>
+
+		</section>
+</body>
+</html>

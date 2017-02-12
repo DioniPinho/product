@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.tymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.tymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/stylesheets/vendors.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/stylesheets/product.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/stylesheets/application.css}" />
+	<link rel="icon" type="image/x-icon" th:href="@{/layout/images/favicon.ico}">
+
+</head>
+<body>
+
+	<div class="layout-page">
+
+		<nav
+			class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference"
+			id="main-navbar">
+			<div class="container-fluid">
+
+				<div class="navbar-header">
+					<a class="navbar-brand  hidden-xs" href="#"> <img
+						alt="Diop" th:src="@{/layout/images/dio-gray-s.png}" style="width: 110px;" />
+					</a>
+
+					<ul class="nav  navbar-nav">
+						<li><a href="#" class="js-sidebar-toggle" style="font-size: 24px"><i
+								class="fa  fa-bars"></i></a></li>
+					</ul>
+				</div>
+
+				<ul class="nav navbar-nav  navbar-right">
+					<li>
+						<p id="navbar-user-name" class="navbar-text"
+							th:text="|Olá, ${#authentication.name}|"></p>
+					</li>
+					<li><a th:href="@{/logout}"><em class="fa  fa-sign-out" style="font-size: 20px"></em></a></li>
+				</ul>
+
+			</div>
+		</nav>
+
+		<aside class="layout-sidebar  js-sidebar">
+			<div class="layout-sidebar__content">
+
+				<nav class="menu  js-menu">
+					<ul class="menu__list">
+
+						<li class="menu__item" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+							<a th:href="@{/produtos/novo}">
+								<i class="fa  fa-fw  fa-home"></i>
+								<span>Cadastro Produto</span>
+							</a>
+						</li>
+						<li class="menu__item">
+							<a th:href="@{/produtos}">
+								<i class="fa fa-fw fa-search"></i>
+									<span>Pesquisa Produto</span>
+							</a>
+						</li>
+
+					</ul>
+				</nav>
+
+			</div>
+		</aside>
+
+		<section class="layout-content  js-content"
+			layout:fragment="content"></section>
+
+		<footer class="layout-footer  js-content">
+			<div class="container-fluid">
+				<span class="footer-disclaimer">&copy; 2017 Dio Software Studio. Todos os
+					direitos reservados.</span>
+			</div>
+		</footer>
+
+	</div>
+
+	<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+	<script th:src="@{/layout/javascripts/product.min.js}"></script>
+	<script th:src="@{/layout/javascripts/jquery.masknumber.min.js}"></script>
+	<script th:src="@{/layout/javascripts/jquery-template.js}"> </script>
+
+	<th:block layout:fragment="js-extra" />
+</body>
+</html>

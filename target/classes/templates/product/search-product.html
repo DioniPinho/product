@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.tymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:data="http://www.tymeleaf.org/extras/data-attribute"
+	layout:decorate="~{layout/template}"
+	xmlns:sec="http://www.tymeleaf.org/extras/spring-security">
+<head>
+<title>Pesquisa de Produtos</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/layout/stylesheets/search-product.css}" />
+</head>
+<body>
+
+	<div class="layout-page">
+
+		<section layout:fragment="content">
+
+
+			<div class="page-header">
+				<div class="container-fluid">
+					<h1>Pesquisa de Produtos</h1>
+				</div>
+			</div>
+
+			<div class="container-fluid">
+
+				<div class="alert  alert-success  alert-dismissible" role="alert"
+					th:if="${!#strings.isEmpty(msg)}">
+					<span th:text="${msg}"></span>
+				</div>
+
+				<form method="GET" class="form-vertical  js-form-loading"
+					th:object="${productFilter}">
+
+
+					<div class="form-group">
+
+						<div class="input-group">
+							<input id="input-produto-nome" th:field="*{name}" type="text"
+								class="form-control" placeholder="Digite o produto..." /> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="submit">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+				</form>
+
+				<div class="table-responsive">
+					<table id="tabela-produtos"
+						class="table table-hover table-condensed table-striped s-sticky-table">
+						<thead class="table-header-solid">
+							<tr>
+								<th class="av-table-produtos-col-id">Código</th>
+								<th>Nome</th>
+								<th class="av-table-produtos-col-type">Categoria</th>
+								<th class="av-table-produtos-col-price">Preço</th>
+								<th class="av-table-produtos-col-icons"></th>
+							</tr>
+						</thead>
+						<tr th:each="product : ${products}">
+							<td th:text="${product.id}" class="text-center"></td>
+							<td>
+								<a th:href="@{/produtos/{id}(id=${product.id})}"
+								th:text="${product.name}" sec:authorize="hasRole('ROLE_ADMINISTRATOR')"></a>
+								<span th:text="${product.name}" sec:authorize="!hasRole('ROLE_ADMINISTRATOR')"></span>
+							</td>
+							<td th:text="#{|productCategory.${product.category}|}"></td>
+							<td th:text="|R$ ${{product.price}}|" class="text-right"></td>
+							<td class="tex-center" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+								<i 	class="fa fa-trash" style="cursor: pointer" data-toggle="modal"
+									data-target="#confirmDeleteModal" 
+									data:name="${product.name}"
+									data:url-delete="@{/produtos/{id}(id=${product.id})}">
+							</i>
+						</td>
+						</tr>
+						<tr th:if="${products.empty}">
+							<td colspan="5">Nenhum produto encontrado.</td>
+						</tr>
+					</table>
+
+
+				</div>
+
+			</div>
+
+			<div class="modal fade" id="confirmDeleteModal" tabindex="-1"
+				role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<form th:action="@{/produtos}" method="POST">
+						 <input type="hidden" name="_method" value="DELETE"/>
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="modalLabel">Excluir produto</h4>
+							</div>
+							<div class="modal-body">
+								<span>tem certeza?</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-primary">Excluir</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<th:block layout:fragment="js-extra">
+			<script th:src="@{/layout/javascripts/modal-delete.js}" ></script>
+		</th:block>
+		
+		
+</body>
+</html>

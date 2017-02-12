@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="htttp://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/simple-template}">
+
+<th:block layout:fragment="content">
+
+	<div class="error-panel">
+		<h1 class="error-panel__code">
+			<i class="fa fa-location-arrow"></i>403
+		</h1>
+		<h2 class="error-panel__title">Acesso negado</h2>
+		<div class="error-panel__description">
+			Você não tem acesso a esta pagina. Em caso de dúvidas entre em
+			contato com o admnistrador do sistema. <br />
+			<br /> <a href="javascript:history.back()" class="btn btn-primary">Voltar
+				à página principal</a>
+		</div>
+	</div>
+
+</th:block>
+
+</html>

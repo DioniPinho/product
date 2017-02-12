@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>Sistema de Gestão</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/product.css}"/>
+  <link rel="icon" type="image/x-icon" th:href="@{/layout/images/favicon.ico}">
+  
+</head>
+
+<body class="layout-simple-page">
+
+	<div class="layout-simple-page__container">
+		<th:block layout:fragment="content"/>
+	</div>
+	
+	<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+	<script th:src="@{/layout/javascripts/product.min.js}"></script>
+
+</body>
+</html>

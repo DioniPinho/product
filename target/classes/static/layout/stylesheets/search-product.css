@@ -1,0 +1,13 @@
+.av-table-produtos-col-id, .av-table-produtos-col-icons{
+	width: 60px;
+	text-align: center;
+}
+
+.av-table-produtos-col-type{
+	width: 100px;
+}
+
+.av-table-produtos-col-price{
+	width: 150px;
+	text-align: right;
+}
